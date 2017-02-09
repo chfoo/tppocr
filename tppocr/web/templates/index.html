@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TPPOCR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.5.4/jquery.timeago.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js" defer></script>
+    <script src="{{ static_url('script.js') }}" defer></script>
+    <link rel="stylesheet" type="text/css" href="{{ static_url('style.css') }} ">
+    <meta name="theme-color" content="#272246">
+</head>
+<body>
+<div id="body_container">
+    <div class="container_block">
+        <h2>TPPOCR</h2>
+        <p>
+            <span id="status_container">Loading...</span>
+        </p>
+
+        <div>
+            {% raw news_html %}
+        </div>
+    </div>
+
+    <noscript>
+        <div class="container_block">
+            Please enable JavaScript or use a JavaScript enabled browser.
+        </div>
+    </noscript>
+
+    <div id="debug_images_container" class="container_block">
+    </div>
+    <script id="debug_image_template" type="x-tmpl-mustache">
+        <div class="debug_image-header">
+            <span class="debug_image-section_name">{{! section_name }}</span>
+            &bull;
+            <time class="debug_image-time timeago"></time>
+        </div>
+        <img class="debug_image">
+    </script>
+
+    <div id="raw_texts_container" class="container_block">
+    </div>
+    <script id="raw_text_template" type="x-tmpl-mustache">
+        <div class="raw_text-header">
+            <span class="raw_text-section_name">{{! section_name }}</span>
+            &bull;
+            <time class="raw_text-time timeago"></time>
+            &bull;
+            <span class="raw_text-confidence"></span>%
+        </div>
+        <div class="raw_text"></div>
+    </script>
+
+    <div id="output_texts_container" class="container_block">
+    </div>
+    <script id="output_text_template" type="x-tmpl-mustache">
+        <div class="output_text-header">
+            <span class="output_text-section_name">{{! section_name }}</span>
+            &bull;
+            <time class="output_text-time timeago" datetime="{{! iso_date }}">{{! date_string }}</time>
+        </div>
+        <div class="output_text">{{! output_text }}</div>
+    </script>
+</div>
+</body>
+</html>
