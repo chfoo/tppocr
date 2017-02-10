@@ -88,6 +88,8 @@ class BaseStream(metaclass=abc.ABCMeta):
 
         _logger.info('Reading frames...')
 
+        log_cooldown_timestamp = 0
+
         while proc.returncode is None:
             frame_data += proc.stdout.read(frame_data_size - len(frame_data))
 
@@ -98,9 +100,13 @@ class BaseStream(metaclass=abc.ABCMeta):
             if len(frame_data) == frame_data_size:
                 _logger.debug('Read 1 frame')
                 try:
-                    self._frame_queue.put(frame_data, timeout=1)
+                    self._frame_queue.put(frame_data, timeout=0.1)
                 except queue.Full:
-                    _logger.warning('Queue full')
+                    time_now = time.time()
+                    if time_now - log_cooldown_timestamp > 60:
+                        _logger.warning('Queue full. You may need to lower '
+                                        'settings or increase CPU power.')
+                        log_cooldown_timestamp = time_now
 
                 frame_data = b''
 
