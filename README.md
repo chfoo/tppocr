@@ -51,7 +51,7 @@ TPPOCR will require running Livestreamer and FFmpeg separately. Ensure these fil
 
 You can do this by editing your shell profile or by prefixing `PATH=$PATH:~/.local/bin:~/bin/` to commands.
 
-For Twitch streams, Livestreamer will require an Client-ID or OAUTH token. OAUTH token can be [specified in the config file](http://docs.livestreamer.io/twitch_oauth.html). You can [generate your own token here](https://twitchapps.com/tmi/). (Keep your token secret!)
+For Twitch streams, Livestreamer will require an Client-ID or OAUTH token. OAUTH token can be [specified in the config file](http://docs.livestreamer.io/twitch_oauth.html). You can generate one using `livestreamer --twitch-oauth-authenticate`. (Keep your token secret!)
 
 Ensure Redis is not exposed to the internet by checking `/etc/redis/6379.conf`. By default on Debian/Ubuntu, it uses `bind 127.0.0.1`. 
 
