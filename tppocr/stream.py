@@ -68,7 +68,7 @@ class BaseStream(metaclass=abc.ABCMeta):
             '-i', self._get_ffmpeg_url(),
             '-f', 'image2pipe', '-pix_fmt', 'gray', '-vcodec', 'rawvideo',
             '-r', str(self._output_fps),
-            '-nostats', '-v', 'error', '-'
+            '-nostats', '-v', 'error', '-nostdin', '-'
         ]
 
         if self._native_frame_rate:
@@ -124,12 +124,12 @@ class BaseStream(metaclass=abc.ABCMeta):
         try:
             proc.terminate()
             proc.wait(5)
-        except OSError:
+        except (OSError, subprocess.SubprocessError):
             _logger.exception('Terminate ffmpeg')
 
         try:
             proc.kill()
-        except OSError:
+        except (OSError, subprocess.SubprocessError):
             pass
 
         self._current_proc = None
