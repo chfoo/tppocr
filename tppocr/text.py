@@ -12,7 +12,7 @@ from typing import List, Optional
 
 PUBLISH_CHANNEL = 'tppocr'
 TEXT_LIST_KEY = 'tppocr.recent_text'
-TEXT_LIST_LIMIT = 200
+TEXT_LIST_LIMIT = 1000
 DEFAULT_TEXT_BUFFER_TIME = 20
 
 _logger = logging.getLogger(__name__)

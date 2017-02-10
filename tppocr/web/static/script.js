@@ -95,7 +95,7 @@ function main() {
             outputTextsContainer.insertBefore(containerElement, outputTextsContainer.firstChild);
             $(containerElement).find("time.timeago").timeago();
 
-            if (outputTextsContainer.childNodes.length > 200) {
+            if (outputTextsContainer.childNodes.length > 1000) {
                 outputTextsContainer.removeChild(outputTextsContainer.lastChild);
             }
         }
