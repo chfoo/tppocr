@@ -17,18 +17,18 @@ CHARS = (
     u'⒫⒦“” …'
 )
 SQUARE_SIZE = 100
-VERSION = '1.0'
+VERSION = '1.0.1'
 COPYRIGHT = 'Original by Nintendo / Game Freak / Pokemon Co. ' \
             'Converted by TPPOCR project.'
 
 
-def get_pixel_data():
-    image = PIL.Image.open('crystal_tiles.png')
+def get_pixel_data(filename='crystal_tiles.png', rows=10):
+    image = PIL.Image.open(filename)
     image = image.convert('1')
 
     data = []
 
-    for tile_row in range(10):
+    for tile_row in range(rows):
         row_data = []
 
         for tile_col in range(16):
@@ -58,33 +58,40 @@ def main():
     font.encoding = 'unicode'
 
     char_pixel_data = get_pixel_data()
+    red_char_pixel_data = get_pixel_data('red_font.png', rows=7)
+
+    def draw_glyph(char, char_pixel_data):
+        glyph = font.createChar(ord(char))
+        glyph.clear()
+        pixel_data = char_pixel_data[char_row][char_col]
+        pen = glyph.glyphPen()
+
+        for tile_y, tile_x in itertools.product(range(8), range(8)):
+            if pixel_data[tile_y * 8 + tile_x] != 0:
+                continue
+
+            x = tile_x * SQUARE_SIZE
+            y = 7 * SQUARE_SIZE - tile_y * SQUARE_SIZE
+
+            # Add +/-1 to slightly increase the block size so each block
+            # will slightly overlap and ensure no points overlap.
+            pen.moveTo((x - 1, y - 1))
+            pen.lineTo((x + SQUARE_SIZE + 1, y - 1))
+            pen.lineTo((x + SQUARE_SIZE + 1, y + SQUARE_SIZE + 1))
+            pen.lineTo((x - 1, y + SQUARE_SIZE + 1))
+            pen.closePath()
+
+        glyph.width = SQUARE_SIZE * 8
 
     for char_row, row in enumerate(CHARS):
         for char_col, char in enumerate(row):
             if char == ' ':
                 continue
 
-            glyph = font.createChar(ord(char))
-            glyph.clear()
-            pixel_data = char_pixel_data[char_row][char_col]
-            pen = glyph.glyphPen()
+            draw_glyph(char, char_pixel_data)
 
-            for tile_y, tile_x in itertools.product(range(8), range(8)):
-                if pixel_data[tile_y * 8 + tile_x] != 0:
-                    continue
-
-                x = tile_x * SQUARE_SIZE
-                y = 7 * SQUARE_SIZE - tile_y * SQUARE_SIZE
-
-                # Add +/-1 to slightly increase the block size so each block
-                # will slightly overlap and ensure no points overlap.
-                pen.moveTo((x - 1, y - 1))
-                pen.lineTo((x + SQUARE_SIZE + 1, y - 1))
-                pen.lineTo((x + SQUARE_SIZE + 1, y + SQUARE_SIZE + 1))
-                pen.lineTo((x - 1, y + SQUARE_SIZE + 1))
-                pen.closePath()
-
-            glyph.width = SQUARE_SIZE * 8
+            if char == 'c':
+                draw_glyph(u'ċ', red_char_pixel_data)
 
     glyph = font.createChar(ord(' '))
     glyph.width = SQUARE_SIZE * 8
