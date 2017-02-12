@@ -97,6 +97,10 @@ class OCR:
             computed_white_region = self._get_computed_rectangle(
                 self._config.white_region
             )
+
+            assert self._config.region.x1 <= self._config.white_region.x1 < self._config.white_region.x2 <= self._config.region.x2
+            assert self._config.region.y1 <= self._config.white_region.y1 < self._config.white_region.y2 <= self._config.region.y2
+
             x1 = (computed_white_region.x1 - computed_ocr_region.x1) \
                 * scale_factor
             y1 = (computed_white_region.y1 - computed_ocr_region.y1) \
