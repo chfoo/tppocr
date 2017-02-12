@@ -25,11 +25,11 @@ class ConsumerBroadcastQueue(threading.Thread):
         while True:
             item = self._producer_queue.get()
 
-            if item is None:
-                break
-
             for consumer_queue in self._consumer_queues:
                 try:
                     consumer_queue.put(item, timeout=1)
                 except queue.Full:
                     pass
+
+            if item is None:
+                break

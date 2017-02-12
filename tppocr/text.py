@@ -108,6 +108,8 @@ class TextFilter:
         self._redis_conn.ltrim(TEXT_LIST_KEY, -TEXT_LIST_LIMIT, -1)
         self._redis_conn.publish(PUBLISH_CHANNEL, json_str)
 
+        _logger.debug('Publish text %s', text)
+
     def _publish_image(self, image: PIL.Image.Image, section: str=None):
         buffer = io.BytesIO()
         image.save(buffer, format='png')

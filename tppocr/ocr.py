@@ -258,6 +258,7 @@ class OCR:
                 if self._config.clear_adaptive_classifier:
                     api.ClearAdaptiveClassifier()
 
+        self._text_filter.flush_text(0)
         _logger.info('Tesseract quit')
 
     def _check_tessdir(self):

@@ -149,6 +149,12 @@ def main():
 
     stream.stop()
 
+    for thread in threads:
+        try:
+            thread.join(timeout=5)
+        except threading.ThreadError:
+            pass
+
     _logger.info('Exiting')
 
 
