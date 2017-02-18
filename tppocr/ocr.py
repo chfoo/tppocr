@@ -247,7 +247,7 @@ class OCR:
                 else:
                     self._text_filter.flush_text()
 
-                if counter % self._config.fps == 0:
+                if counter % (self._config.fps * 2) == 0:
                     debug_image = self._render_debug_image(
                         image, ocr_image, api, region_info
                     )

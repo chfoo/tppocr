@@ -112,11 +112,11 @@ class TextFilter:
 
     def _publish_image(self, image: PIL.Image.Image, section: str=None):
         buffer = io.BytesIO()
-        image.save(buffer, format='png')
+        image.save(buffer, format='jpeg')
         doc = {
             'type': 'debug_image',
             'image': base64.b64encode(buffer.getvalue()).decode('ascii'),
-            'format': 'image/png;base64',
+            'format': 'image/jpeg;base64',
             'timestamp': time.time(),
             'section': section
         }
