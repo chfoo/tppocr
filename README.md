@@ -99,6 +99,6 @@ If you simply want to use the training data with Tesseract, copy the traineddata
 
 Or you can run it by specifying the project directory. For example, to read a cropped image of a timestamp:
 
-        tesseract --tessdata-dir ~/Documents/tppocr/tessdata/ -l pkmngba_en out3_1.jpg stdout /usr/share/tesseract-ocr/tessdata/configs/digits
+        tesseract --tessdata-dir ~/Documents/tppocr/tessdata/ -l pkmngba_en screenshot_cropped.jpg stdout /usr/share/tesseract-ocr/tessdata/configs/digits
 
 
