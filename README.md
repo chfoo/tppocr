@@ -1,7 +1,7 @@
 TPPOCR
 ======
 
-Teseract OCR of Pokemon dialog text on streaming video.
+Tesseract OCR of Pokemon dialog text on streaming video.
 
 This project contains scripts and training data needed for running OCR on live streams such as TwitchPlaysPokemon.
 
@@ -11,6 +11,8 @@ It has two language data files:
 * `pkmngba_en`: English training data for Gameboy Advanced / DS Pokemon games such as Ruby, Saphire, Emerald, FireRed, Diamond, Pearl, Platinum.
 
 You may be interested in [PokeTEXT](https://github.com/rctgamer3/poketext) too.
+
+If you just want to use the training data, please skip to the bottom of this document.
 
 
 Install
@@ -88,3 +90,15 @@ Add `--help` to see available settings. If you want to expose this to the Intern
 To save the data, you can use the following:
 
         python3 -m tppocr.pub.textfile log_dir/
+
+
+Standalone
+----------
+
+If you simply want to use the training data with Tesseract, copy the traineddata file into the Tesseract data directory.
+
+Or you can run it by specifying the project directory. For example, to read a cropped image of a timestamp:
+
+        tesseract --tessdata-dir ~/Documents/tppocr/tessdata/ -l pkmngba_en out3_1.jpg stdout /usr/share/tesseract-ocr/tessdata/configs/digits
+
+
