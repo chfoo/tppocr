@@ -14,6 +14,7 @@ You may be interested in [PokeTEXT](https://github.com/rctgamer3/poketext) too.
 
 If you just want to use the training data, please skip to the bottom of this document.
 
+**Note**: This project was designed for Tesseract version 3. For version 4, please see [tppocr2](https://github.com/chfoo/tppocr2).
 
 Install
 =======
